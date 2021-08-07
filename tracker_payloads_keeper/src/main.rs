@@ -4,7 +4,7 @@ use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 #[actix_web::main]
 
 async fn main() -> std::io::Result<()> {
-    let url = "0.0.0.0:8002";
+    let url = "0.0.0.0:8003";
 
     // START HTTP SERVER WITH GLOBAL STATE
     HttpServer::new( move || {  
