@@ -4,7 +4,7 @@ use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 #[actix_web::main]
 
 async fn main() -> std::io::Result<()> {
-    let url = "0.0.0.0:8001";
+    let url = "0.0.0.0:8002";
 
     // START HTTP SERVER WITH GLOBAL STATE
     HttpServer::new( move || {  
@@ -20,6 +20,6 @@ async fn main() -> std::io::Result<()> {
 #[get("/info")]
 async fn hi() -> impl Responder {
     HttpResponse::Ok().body("
-        TRACKER ENRICHER IS RUNNING
+        TRACKER PAYLOADS KEEPER IS RUNNING
     ")
 }

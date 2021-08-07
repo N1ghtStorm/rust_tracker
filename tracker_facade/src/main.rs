@@ -20,6 +20,6 @@ async fn main() -> std::io::Result<()> {
 #[get("/info")]
 async fn hi() -> impl Responder {
     HttpResponse::Ok().body("
-        TRACKER FACADE RUNNING
+        TRACKER FACADE IS RUNNING
     ")
 }
