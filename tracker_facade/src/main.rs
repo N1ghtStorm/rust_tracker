@@ -4,9 +4,16 @@ use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 pub mod models;
 pub mod controllers;
 
+// APPLICATION CONFIG MODULES
+pub mod config;
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let url = "0.0.0.0:8002";
+    let a = config::get_application_config();
+
+    println!("===========================================");
+    println!("{:?}", a);
 
     // START HTTP SERVER WITH GLOBAL STATE
     HttpServer::new( move || {  
