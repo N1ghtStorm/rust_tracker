@@ -1,6 +1,5 @@
 use actix_web::{post, HttpResponse, Responder};
 use serde_json;
-
 use crate::controllers::dtos::event_dto::{EventDto};
 
 #[post("/eventv1")]

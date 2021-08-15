@@ -2,6 +2,11 @@ use std::fs::File;
 use std::io::Read;
 use serde_json;
 use serde::{Serialize, Deserialize};
+use lazy_static::lazy_static;
+
+lazy_static! {
+    pub static ref APP_CONFIG: ApplicationConfig = get_application_config();
+}
 
 const APPSETTINGS: &str = "./src/appsettings.json";
 
