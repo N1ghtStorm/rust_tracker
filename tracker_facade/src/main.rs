@@ -1,8 +1,9 @@
 use std::sync::Arc;
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 
-#[actix_web::main]
+pub mod models;
 
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let url = "0.0.0.0:8002";
 
