@@ -1,9 +1,10 @@
 use chrono::{DateTime, Utc};
 use uuid::Uuid;
 
-struct Event {
-    uuid: Uuid,
-    action: String,
-    date: DateTime<Utc>,
-    buttonName: String,
+
+pub struct Event {
+    pub uuid: Uuid,
+    pub action: String,
+    pub date: String,
+    pub button_name: String,
 }

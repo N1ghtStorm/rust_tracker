@@ -2,6 +2,7 @@ use std::sync::Arc;
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 
 pub mod models;
+pub mod controllers;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -11,6 +12,8 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new( move || {  
         App::new()
             .service(hi)
+            .service(controllers::event_controller::post_event_async)
+            .service(controllers::event_controller::post_events_async)
     })
     .bind(url)?
     .run()
