@@ -3,7 +3,11 @@ use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 
 pub mod models;
 pub mod dtos;
+
 pub mod controllers;
+pub mod services;
+pub mod kafka;
+pub mod errors;
 
 // APPLICATION CONFIG MODULES
 pub mod config;

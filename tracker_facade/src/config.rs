@@ -34,7 +34,6 @@ pub struct ApplicationConfig {
 #[serde(rename_all = "PascalCase")]
 struct KafkaConfig {
     brokers: String,
-    consumer_group: String,
     topic: String,
 }
 
@@ -48,10 +47,6 @@ struct RedisConfig {
 impl ApplicationConfig {
     pub fn get_kafka_brokers(&self) -> &String {
         return &self.kafka.brokers;
-    }
-
-    pub fn get_kafka_consumer_group(&self) -> &String {
-        return &self.kafka.consumer_group;
     }
 
     pub fn get_kafka_topic(&self) -> &String {

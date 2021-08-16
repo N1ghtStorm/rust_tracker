@@ -1,6 +1,4 @@
-use chrono::{DateTime, Utc};
 use uuid::Uuid;
-
 
 pub struct Event {
     pub uuid: Uuid,
