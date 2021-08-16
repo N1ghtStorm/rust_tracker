@@ -13,3 +13,6 @@ serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
 uuid = { version = "0.8", features = ["serde", "v4"] }
 chrono = "0.4.1"
 lazy_static = "1.4.0"
+
+[dependencies.redis]
+version = "*"

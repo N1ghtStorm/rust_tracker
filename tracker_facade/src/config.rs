@@ -8,7 +8,7 @@ lazy_static! {
     pub static ref APP_CONFIG: ApplicationConfig = get_application_config();
 }
 
-const APPSETTINGS: &str = "./src/appsettings.json";
+const APPSETTINGS: &str = "appsettings.json";
 
 pub fn get_application_config() -> ApplicationConfig {
     let mut file = File::open(APPSETTINGS).unwrap();
@@ -18,7 +18,7 @@ pub fn get_application_config() -> ApplicationConfig {
 
     match deser_result {
         Err(e) => panic!("Error reading {}: {}", APPSETTINGS, e),
-        Ok(a) => a
+        Ok(ac) => ac
     }
 }
 
@@ -26,20 +26,39 @@ pub fn get_application_config() -> ApplicationConfig {
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "PascalCase")]
 pub struct ApplicationConfig {
-    pub kafka: KafkaConfig,
-    pub redis: RedisConfig,
+    kafka: KafkaConfig,
+    redis: RedisConfig,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "PascalCase")]
-pub struct KafkaConfig {
-    pub brokers: String,
-    pub consumer_group: String,
-    pub topic: String,
+struct KafkaConfig {
+    brokers: String,
+    consumer_group: String,
+    topic: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "PascalCase")]
-pub struct RedisConfig {
-    pub addr: String
+struct RedisConfig {
+    addr: String
+}
+
+
+impl ApplicationConfig {
+    pub fn get_kafka_brokers(&self) -> &String {
+        return &self.kafka.brokers;
+    }
+
+    pub fn get_kafka_consumer_group(&self) -> &String {
+        return &self.kafka.consumer_group;
+    }
+
+    pub fn get_kafka_topic(&self) -> &String {
+        return &self.kafka.topic;
+    }
+
+    pub fn get_redis_addr(&self) -> &String {
+        return &self.redis.addr;
+    }
 }

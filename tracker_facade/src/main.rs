@@ -2,6 +2,7 @@ use std::sync::Arc;
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 
 pub mod models;
+pub mod dtos;
 pub mod controllers;
 
 // APPLICATION CONFIG MODULES

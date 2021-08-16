@@ -1,6 +1,6 @@
 use actix_web::{post, HttpResponse, Responder};
 use serde_json;
-use crate::controllers::dtos::event_dto::{EventDto};
+use crate::dtos::event_dto::{EventDto};
 
 #[post("/eventv1")]
 pub async fn post_event_async(req_body: String) -> impl Responder {
