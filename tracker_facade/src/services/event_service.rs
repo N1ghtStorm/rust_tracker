@@ -11,8 +11,6 @@ pub fn process_event_async(dto: EventDto) -> Result<(), ServiceError> {
         Ok(ev) => ev
     };
 
-
-
     // SEND KAFKA MESSAGE:
     if let Err(err) = send_event(event) {
         return Err(ServiceError {message:err.message});

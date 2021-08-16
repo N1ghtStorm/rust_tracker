@@ -1,6 +1,6 @@
 use actix_web::{post, HttpResponse, Responder};
 use serde_json;
-use crate::dtos::event_dto::{EventDto};
+use crate::{dtos::event_dto::{EventDto}, services};
 
 #[post("/eventv1")]
 pub async fn post_event_async(req_body: String) -> impl Responder {
@@ -10,9 +10,11 @@ pub async fn post_event_async(req_body: String) -> impl Responder {
         Ok(e) => e
     };
 
-    HttpResponse::NotFound().body("
-        NOT IMPLEMETED
-    ")
+    if let Err(err) = services::event_service::process_event_async(event_dto) {
+        return HttpResponse::InternalServerError().body(format!("error has occured {}", err.message))
+    }
+
+    HttpResponse::Ok().body("")
 }
 
 #[post("/eventsv1")]
