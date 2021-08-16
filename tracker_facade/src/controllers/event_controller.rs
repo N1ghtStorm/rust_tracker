@@ -1,5 +1,6 @@
 use actix_web::{post, HttpResponse, Responder};
 use serde_json;
+use serde::Deserialize;
 use crate::{dtos::event_dto::{EventDto}, services};
 
 #[post("/eventv1")]
@@ -29,3 +30,12 @@ pub async fn post_events_async(req_body: String) -> impl Responder {
         NOT IMPLEMETED
     ")
 }
+
+
+// fn deserialize_string_body<'a, T>(body: String) -> Result<T, String> where T: Deserialize{
+//     let deser_result: serde_json::Result<T> = serde_json::from_str(&body);
+//     match deser_result {
+//         Err(_) => return Err("Bad body".to_string()),
+//         Ok(e) => Ok(e)
+//     }
+// }

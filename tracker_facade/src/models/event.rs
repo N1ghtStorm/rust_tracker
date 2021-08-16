@@ -6,6 +6,7 @@ use serde_json;
 
 
 #[derive(Serialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct Event {
     pub uuid: String,
     pub action: String,
