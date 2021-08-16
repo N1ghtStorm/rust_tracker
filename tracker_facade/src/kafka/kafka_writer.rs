@@ -3,10 +3,11 @@ use rdkafka::{
     ClientConfig,
 };
 
-use crate::{config, errors::KafkaSenderError};
+use crate::{config, errors::KafkaSenderError, models::event::Event};
 
-fn send_message(message: String) -> Result<(), KafkaSenderError>{
+pub fn send_event(event: Event) -> Result<(), KafkaSenderError>{
     let producer = get_producer();
+    let message = event.get_serialized_string();
 
     let record = BaseRecord::to(config::APP_CONFIG.get_kafka_topic())
                                             .key("")

@@ -1,1 +1,1 @@
-mod kafka_writer;
+pub mod kafka_writer;
