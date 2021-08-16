@@ -1,19 +1,9 @@
-use rdkafka::{
-    producer::{BaseProducer, BaseRecord},
-    ClientConfig,
-};
-
 use kafka::producer::{Producer, Record, RequiredAcks};
 use std::time::Duration;
-use std::fmt::Write;
 
 use crate::{config, errors::KafkaSenderError, models::event::Event};
 
 pub fn send_event(event: Event) -> Result<(), KafkaSenderError>{
-
-    // TODO: REALLOC PROBLEM
-    // let broker = config::APP_CONFIG.get_kafka_brokers().clone();
-    
     let mut producer = match get_producer() {
                         Err(_) => return Err(KafkaSenderError{message: "error sending to kafka".to_string()}),
                         Ok(p) => p
