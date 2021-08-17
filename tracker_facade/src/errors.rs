@@ -9,3 +9,7 @@ pub struct KafkaSenderError {
 pub struct EventError {
     pub message: String
 }
+
+pub struct BatchError {
+    pub message: String
+}

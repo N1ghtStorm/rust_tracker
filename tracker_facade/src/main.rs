@@ -7,6 +7,7 @@ pub mod controllers;
 pub mod services;
 pub mod kafka;
 pub mod errors;
+pub mod batching;
 
 // APPLICATION CONFIG MODULES
 pub mod config;
