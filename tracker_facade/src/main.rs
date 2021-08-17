@@ -1,11 +1,13 @@
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
+use batching::batcher::{BatchConfig, Batcher};
+use kafka_sending::kafka_writer::send_events;
 
 pub mod models;
 pub mod dtos;
 
 pub mod controllers;
 pub mod services;
-pub mod kafka;
+pub mod kafka_sending;
 pub mod errors;
 pub mod batching;
 
@@ -19,6 +21,13 @@ async fn main() -> std::io::Result<()> {
 
     println!("===========================================");
     println!("{:?}", a);
+
+    std::thread::spawn(move || {
+        let batch_config = BatchConfig::new(3, 2);
+        let func = Box::new(send_events);
+        let mut batcher = Batcher::new(batch_config, func);
+        let _ = batcher.start_batching();
+    });
 
     // START HTTP SERVER WITH GLOBAL STATE
     HttpServer::new( move || {  

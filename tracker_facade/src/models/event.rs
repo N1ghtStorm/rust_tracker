@@ -61,7 +61,7 @@ impl Event {
     }
 
     /// Get serialized strings from multiples events
-    pub fn get_serialized_string_vec(event_vec: Vec<Event>) -> Vec<String> {
+    pub fn get_serialized_string_vec(event_vec: &Vec<Event>) -> Vec<String> {
         event_vec.iter()
                  .map(|x| x.get_serialized_string())
                  .collect::<Vec<String>>()

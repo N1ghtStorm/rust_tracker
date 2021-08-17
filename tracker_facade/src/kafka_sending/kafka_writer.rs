@@ -21,7 +21,7 @@ pub fn send_event(event: Event) -> Result<(), KafkaSenderError>{
 }
 
 
-pub fn send_events(events_batch: Vec<Event>) -> Result<(), KafkaSenderError>{
+pub fn send_events(events_batch: &Vec<Event>) -> Result<(), KafkaSenderError>{
     let mut producer = match get_producer() {
                         Err(_) => return Err(KafkaSenderError{message: "error creating kafka producer".to_string()}),
                         Ok(p) => p

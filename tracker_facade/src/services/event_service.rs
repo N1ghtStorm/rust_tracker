@@ -1,6 +1,6 @@
 use crate::dtos::event_dto::EventDto;
 use crate::errors::{ServiceError};
-use crate::kafka::kafka_writer::{send_event};
+use crate::kafka_sending::kafka_writer::{send_event};
 use crate::models::event::Event;
 
 pub fn process_event_async(dto: EventDto) -> Result<(), ServiceError> {
