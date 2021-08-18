@@ -1,4 +1,4 @@
-use std::{sync::{RwLock, Arc}, thread};
+use std::{sync::{RwLock, Arc, Mutex}, thread};
 use std::time::Duration;
 use crate::errors::BatchError;
 
@@ -6,11 +6,11 @@ use crate::errors::BatchError;
 pub struct Batcher<T, E> {
     collection: Arc<RwLock<Vec<T>>>,
     config: BatchConfig,
-    batch_fn: Box<dyn Fn(&Vec<T>) -> Result<(), E>>
+    batch_fn: Arc<Mutex<dyn Fn(&Vec<T>) -> Result<(), E>>>
 }
 
 impl<T, E> Batcher<T, E> {
-    pub fn new(config: BatchConfig, func: Box<dyn Fn(&Vec<T>) -> Result<(), E>>) -> Self {
+    pub fn new(config: BatchConfig, func: Arc<Mutex<dyn Fn(&Vec<T>) -> Result<(), E>>>) -> Self {
         Batcher{
             collection: Arc::new(RwLock::new(Vec::with_capacity(config.max_batch_size))), 
             config,
@@ -41,7 +41,7 @@ impl<T, E> Batcher<T, E> {
             }
 
             // start processing
-            let func = &self.batch_fn;
+            let func = &self.batch_fn.lock().unwrap();
             if let Err(_) = func(&collection) {
                 return Err(BatchError {message: "error processing batch".to_string()});
             }

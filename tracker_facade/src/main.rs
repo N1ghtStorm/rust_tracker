@@ -1,6 +1,7 @@
-use actix_web::{get, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use batching::batcher::{BatchConfig, Batcher};
 use kafka_sending::kafka_writer::send_events;
+use std::sync::{Arc, RwLock, Mutex};
 
 pub mod models;
 pub mod dtos;
@@ -22,11 +23,18 @@ async fn main() -> std::io::Result<()> {
     println!("===========================================");
     println!("{:?}", a);
 
+    let batch_config = BatchConfig::new(3, 2);
+    let func = Arc::new(Mutex::new(send_events));
+    let mut batcher = Arc::new(Batcher::new(batch_config, func.clone()));
+    
+    //let _ = batcher.start_batching();
+    web::Data::new( AppState::new(batcher.clone()));
+
     std::thread::spawn(move || {
-        let batch_config = BatchConfig::new(3, 2);
-        let func = Box::new(send_events);
-        let mut batcher = Batcher::new(batch_config, func);
-        let _ = batcher.start_batching();
+        // let batch_config = BatchConfig::new(3, 2);
+        // let func = Box::new(send_events);
+        // let mut batcher = Batcher::new(batch_config, func);
+        let a = batcher.clone();//.start_batching();
     });
 
     // START HTTP SERVER WITH GLOBAL STATE
@@ -42,7 +50,13 @@ async fn main() -> std::io::Result<()> {
 }
 
 struct AppState {
-    batcher: Batcher<models::event::Event, errors::KafkaSenderError>
+    batcher: Arc<Batcher<models::event::Event, errors::KafkaSenderError>>
+}
+
+impl AppState{
+    pub fn new(batcher: Arc<Batcher<models::event::Event, errors::KafkaSenderError>>) -> Self {
+        AppState{batcher}
+    }
 }
 
 /// Healthcheck endpoint
