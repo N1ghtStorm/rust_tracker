@@ -41,6 +41,10 @@ async fn main() -> std::io::Result<()> {
     .await
 }
 
+struct AppState {
+    batcher: Batcher<models::event::Event, errors::KafkaSenderError>
+}
+
 /// Healthcheck endpoint
 #[get("/info")]
 async fn hi() -> impl Responder {

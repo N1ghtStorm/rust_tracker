@@ -5,6 +5,7 @@ use serde::{Serialize};
 use serde_json;
 
 
+/// MAIN DOMAIN:
 #[derive(Serialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Event {

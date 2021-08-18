@@ -2,6 +2,7 @@ use std::{sync::{RwLock, Arc}, thread};
 use std::time::Duration;
 use crate::errors::BatchError;
 
+/// MY OWN KAFKA BATCHING STUFF, MADE IT JUST FOR FUN!!!!! 
 pub struct Batcher<T, E> {
     collection: Arc<RwLock<Vec<T>>>,
     config: BatchConfig,
@@ -50,6 +51,7 @@ impl<T, E> Batcher<T, E> {
         Ok(())
     }
 
+    /// Adds element to batch, if batch is full - process it
     pub fn add_to_batch(&mut self, element: T){
         let len;
 
