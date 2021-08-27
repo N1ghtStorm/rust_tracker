@@ -30,12 +30,12 @@ async fn main() -> std::io::Result<()> {
     //let _ = batcher.start_batching();
     web::Data::new( AppState::new(batcher.clone()));
 
-    std::thread::spawn(move || {
-        // let batch_config = BatchConfig::new(3, 2);
-        // let func = Box::new(send_events);
-        // let mut batcher = Batcher::new(batch_config, func);
-        let a = batcher.clone();//.start_batching();
-    });
+    // std::thread::spawn(move || {
+    //     // let batch_config = BatchConfig::new(3, 2);
+    //     // let func = Box::new(send_events);
+    //     // let mut batcher = Batcher::new(batch_config, func);
+    //     let a = batcher.clone();//.start_batching();
+    // });
 
     // START HTTP SERVER WITH GLOBAL STATE
     HttpServer::new( move || {  
