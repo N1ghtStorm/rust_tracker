@@ -21,6 +21,7 @@ async fn main() -> std::io::Result<()> {
     let a = config::get_application_config();
 
     println!("===========================================");
+    
     println!("{:?}", a);
 
     let batch_config = BatchConfig::new(3, 2);
